@@ -44,19 +44,19 @@ LinkedList<T>::~LinkedList()
 }
 
 template<class T>
-void LinkedList<T>::addFirst(T* object)
+void LinkedList<T>::addFirst(T& object)
 {
 	add(object, 1);
 }
 
 template<class T>
-void LinkedList<T>::add(T* object, int n)
+void LinkedList<T>::add(T& object, int n)
 {
 	if (n < 1 || n > length + 1)
 		return;
 	Node* temp = pHead;
 	while (--n) { temp = temp->getNext();}
-	temp->setNext(new Node(object, temp->getNext()));
+	temp->setNext(new Node(new T(object), temp->getNext()));
 	temp = temp->getNext();
 	length++;
 	if (temp->getNext() == NULL)
@@ -64,10 +64,10 @@ void LinkedList<T>::add(T* object, int n)
 }
 
 template<class T>
-void LinkedList<T>::addLast(T* object)
+void LinkedList<T>::addLast(T& object)
 {
 	//add(object, length + 1);
-	pLast->setNext(new Node(object, pLast->getNext()));
+	pLast->setNext(new Node(new T(object), pLast->getNext()));
 	pLast = pLast->getNext();
 	length++;
 }
@@ -106,13 +106,13 @@ int LinkedList<T>::size()
 }
 
 template<class T>
-T LinkedList<T>::getFirst()
+T LinkedList<T>::getFirst() const
 {
 	return get(1);
 }
 
 template<class T>
-T LinkedList<T>::get(int n)
+T LinkedList<T>::get(int n) const
 {
 	Node* temp = pHead;
 	while (n--) { temp = temp->getNext(); }
@@ -120,7 +120,7 @@ T LinkedList<T>::get(int n)
 }
 
 template<class T>
-T LinkedList<T>::getLast()
+T LinkedList<T>::getLast() const
 {
 	return *(pLast->get());
 }
